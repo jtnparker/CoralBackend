@@ -109,10 +109,12 @@ async function write() {
       let imageUrl =  results[place].linkCode.imageUrl;     
     //   let description =  results[place].description;  
       
-      const dataGather = await (() => {
-         data =  `${id}|${title}|${brand}|${advertiserId}|${catalogId}|${imageLink}|${cost}|${currency}|${clickUrl}|${imageUrl}|${hrc}|${peta}|${fla}\n`;
+      const dataGather =  ( async () => {
+         return data =  `${id}|${title}|${brand}|${advertiserId}|${catalogId}|${imageLink}|${cost}|${currency}|${clickUrl}|${imageUrl}|${hrc}|${peta}|${fla}\n`;
       });
-      dataGather();
+      dataGather().then((data) => {
+
+    
       if (i === 0) {
         return writer.write(data, encoding, callback);
       } else {
@@ -121,6 +123,7 @@ async function write() {
         ok = writer.write(data, encoding);
         
       }
+    });
     } while (i > 0 && ok);
     if (i > 0) {
 // had to stop early!
