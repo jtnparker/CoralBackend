@@ -278,10 +278,11 @@ const searchCategories = async () => {
                   })
                   stream.on('end', () => {
                       console.log(`Completed loading data into ${targetTable}`)
+                      fs.truncate(sourceFilePath, () => {
                       fs.unlink(inputFile, (err) => {
                         if (err) throw err;
                         console.log(`${inputFile} was deleted`);
-                      });
+                      }) });
                       client.end()
                       .then(() => {
                           seedClient.connect()
